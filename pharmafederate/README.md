@@ -1,6 +1,6 @@
 # PharmaFederate: Privacy-Preserving Precision Pharmacoepidemiology
 
-## 1. Project Title & Vision
+## 1. Summary
 A reference architecture for cross-border drug safety monitoring. PharmaFederate enables pharmaceutical companies and health ministries to generate Real-World Evidence (RWE) from distributed, siloed patient data while maintaining strict HIPAA and GDPR compliance.
 
 ## 2. The Problem Statement
