@@ -15,10 +15,10 @@ To build an MCP server for your models, the Python FastMCP SDK is the most effic
 ## 3. Transforming a Deep Learning Model (PyTorch)
 Let’s take a pre-trained Image Classification model and expose it as a tool. The key is the @mcp.tool() decorator, where the docstring serves as the instructions for the LLM.
 ``` from fastmcp import FastMCP
-import torch
-from torchvision import models, transforms
-from PIL import Image
-import io
+``` import torch
+``` from torchvision import models, transforms
+``` from PIL import Image
+``` import io
 
 ### 1. Initialize MCP Server
 ```mcp = FastMCP("Vision-Intelligence")
