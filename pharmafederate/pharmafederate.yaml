@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  # The Hub: Central Aggregator and Model Coordinator
+  aggregator:
+    image: pharmafederate/aggregator:latest
+    container_name: federated-hub
+    build:
+      context: ./aggregator
+    ports:
+      - "8080:8080"
+    environment:
+      - MIN_CLIENTS=2
+      - ROUNDS=10
+      - MODEL_TYPE=RandomForest_OMOP  # Example for Pharmacoepi
+    networks:
+      - federated-net
+
+  # Clinical Node 1: Hospital Alpha (Simulated EHR)
+  hospital-alpha:
+    image: pharmafederate/client:latest
+    container_name: node-hospital-alpha
+    build:
+      context: ./client
+    depends_on:
+      - aggregator
+    environment:
+      - AGGREGATOR_URL=http://aggregator:8080
+      - NODE_ID=HOSP_ALPHA
+      - DB_TYPE=PostgreSQL
+    volumes:
+      - ./data/alpha_omop:/app/data:ro  # Read-only local EHR data
+    networks:
+      - federated-net
+
+  # Clinical Node 2: Hospital Beta (Simulated EHR)
+  hospital-beta:
+    image: pharmafederate/client:latest
+    container_name: node-hospital-beta
+    build:
+      context: ./client
+    depends_on:
+      - aggregator
+    environment:
+      - AGGREGATOR_URL=http://aggregator:8080
+      - NODE_ID=HOSP_BETA
+      - DB_TYPE=PostgreSQL
+    volumes:
+      - ./data/beta_omop:/app/data:ro   # Isolated local data
+    networks:
+      - federated-net
+
+networks:
+  federated-net:
+    driver: bridge
