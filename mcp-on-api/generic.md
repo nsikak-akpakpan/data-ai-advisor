@@ -10,21 +10,21 @@ When you transform a model into an MCP server, you aren't just serving predictio
 | Execution | Human-triggered code | LLM-triggered "Agentic" action |
 ## 2. Setting Up the Environment
 To build an MCP server for your models, the Python FastMCP SDK is the most efficient route. It handles the protocol complexity so you can focus on your model logic.
-pip install fastmcp torch torchvision  # Or scikit-learn / tensorflow
+    ```pip install fastmcp torch torchvision  # Or scikit-learn / tensorflow
 
 ## 3. Transforming a Deep Learning Model (PyTorch)
 Let’s take a pre-trained Image Classification model and expose it as a tool. The key is the @mcp.tool() decorator, where the docstring serves as the instructions for the LLM.
-from fastmcp import FastMCP
+```from fastmcp import FastMCP
 import torch
 from torchvision import models, transforms
 from PIL import Image
 import io
 
 ### 1. Initialize MCP Server
-mcp = FastMCP("Vision-Intelligence")
+```mcp = FastMCP("Vision-Intelligence")
 
 ### 2. Load your Deep Learning Model
-model = models.resnet50(pretrained=True)
+```model = models.resnet50(pretrained=True)
 model.eval()
 
 @mcp.tool()
