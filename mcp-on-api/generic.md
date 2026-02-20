@@ -14,14 +14,14 @@ To build an MCP server for your models, the Python FastMCP SDK is the most effic
 
 ## 3. Transforming a Deep Learning Model (PyTorch)
 Let’s take a pre-trained Image Classification model and expose it as a tool. The key is the @mcp.tool() decorator, where the docstring serves as the instructions for the LLM.
-```
+
   from fastmcp import FastMCP
   import torch
   from torchvision import models, transforms
   from PIL import Image
-  import io ```
+  import io 
 
-### 1. Initialize MCP Server
+## 1. Initialize MCP Server
 ```mcp = FastMCP("Vision-Intelligence")
 
 ### 2. Load your Deep Learning Model
@@ -53,17 +53,17 @@ async def classify_image(image_bytes: bytes) -> str:
 
 if __name__ == "__main__":
     mcp.run(transport="stdio")
-
+```
 ## 4. Turning ML Data into "Resources"
 Sometimes, the LLM doesn't need to run a model, but rather understand the data the model was trained on or the metrics it produces. In MCP, we use Resources.
-@mcp.resource("ml://model-metrics")
+```@mcp.resource("ml://model-metrics")
 def get_model_performance() -> str:
     """Provides the latest accuracy and loss metrics for the deployed model."""
     return "Accuracy: 94.2% | F1-Score: 0.91 | Last Retrained: 2026-01-05"
-
+```
 ## 5. Deployment: Connecting to the Host
-Once your script is ready, you can add it to an MCP host like Claude Desktop or an IDE. This allows you to chat with the LLM and say, "Look at this image and tell me what's in it using my local Vision tool."
-Example config.json for Claude Desktop:
+Once your script is ready, you can add it to an MCP host, such as Claude Desktop, or an IDE. This allows you to chat with the LLM and say, "Look at this image and tell me what's in it using my local Vision tool."
+```Example config.json for Claude Desktop:
 {
   "mcpServers": {
     "my-ml-models": {
@@ -72,10 +72,12 @@ Example config.json for Claude Desktop:
     }
   }
 }
+```
 
 ##Summary: The New Standard for AI Integration
 Transforming your ML/DL models into MCP servers effectively moves your local intelligence into the global "brain" of the LLM. You no longer need to build a custom UI for every model; the LLM becomes your interface.
-##Key Takeaways:
+
+## Key Takeaways:
  * Tools are for inference (running the model).
  * Resources are for metadata (metrics and datasets).
  * Descriptions are the new "Function Calls"—write them clearly for the AI.
